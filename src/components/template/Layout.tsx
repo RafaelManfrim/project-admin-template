@@ -10,9 +10,9 @@ type LayoutProps = {
 
 export default function Layout(props: LayoutProps){
     return (
-        <main className='flex h-screen w-screen'>
+        <main className='dark flex h-screen w-screen'>
             <Sidebar></Sidebar>
-            <div className="flex flex-col bg-gray-300 dark:bg-gray-800 w-full p-7">
+            <div className="flex flex-col bg-gray-200 dark:bg-gray-800 w-full p-7">
             <Header title={props.title} subtitle={props.subtitle}></Header>
                 <Content>
                     {props.children}

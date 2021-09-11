@@ -8,7 +8,7 @@ type SidebarProps = {
 
 export default function Sidebar(props: SidebarProps){
     return (
-        <aside className="flex flex-col">
+        <aside className="flex flex-col dark:bg-gray-900 dark:text-gray-300">
             <div className="h-20 w-25 bg-gradient-to-r from-indigo-500 to-purple-800 flex flex-col justify-center items-center">
                 <Logo></Logo>
             </div>

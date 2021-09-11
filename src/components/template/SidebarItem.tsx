@@ -20,7 +20,7 @@ export default function SidebarItem(props: SidebarItemProps){
     }
 
     return (
-        <li onClick={props.onClick} className={`hover:bg-gray-100 cursor-pointer ${props.cls}`}>
+        <li onClick={props.onClick} className={`hover:bg-gray-100 dark:hover:bg-gray-400 cursor-pointer ${props.cls}`}>
             {props.url ? (
                 <Link href={props.url}>
                     {renderLink()}
