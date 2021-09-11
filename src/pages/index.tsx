@@ -1,7 +1,9 @@
+import Layout from '../components/template/Layout'
+
 export default function Home() {
 	return (
-		<div>
-		
-		</div>
+		<Layout title="Home" subtitle="oi">
+			a
+		</Layout>
 	)
 }
