@@ -1,4 +1,5 @@
 import Header from './Header'
+import SwitchThemeButton from './SwitchThemeButton'
 import Sidebar from './Sidebar'
 import Content from './Content'
 import useAppContext from '../../data/hooks/useAppContext'
@@ -17,7 +18,9 @@ export default function Layout(props: LayoutProps){
         <main className={`${theme} flex h-screen w-screen`}>
             <Sidebar />
             <div className="flex flex-col bg-gray-200 dark:bg-gray-800 w-full p-7">
-            <Header title={props.title} subtitle={props.subtitle}><button onClick={switchTheme}>Click here</button></Header>
+            <Header title={props.title} subtitle={props.subtitle}>
+                <SwitchThemeButton theme={theme} switchTheme={switchTheme} />
+            </Header>
                 <Content>
                     {props.children}
                 </Content>

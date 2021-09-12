@@ -8,9 +8,9 @@ type HeaderProps = {
 
 export default function Header(props: HeaderProps){
     return (
-        <header>
+        <header className='flex'>
             <Title title={props.title} subtitle={props.subtitle} />
-            {props.children}
+            <div className='flex flex-grow justify-end'>{props.children}</div>
         </header>
     )
 }
