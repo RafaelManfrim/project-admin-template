@@ -1,4 +1,4 @@
-//import route from 'next/router'
+import route from 'next/router'
 import { createContext, useState } from 'react'
 import User from '../../model/User'
 import firebase from '../../services/firebase/firebase-config'
@@ -10,30 +10,38 @@ type AuthContextProps = {
 
 const AuthContext = createContext<AuthContextProps>({})
 
-// async function normalizedUser(firebaseUser: firebase.User): Promise<User> {
-//     const token = await firebaseUser.getIdToken()
-//     return {
-//         uid: firebaseUser.uid,
-//         email: firebaseUser.email,
-//         name: firebaseUser.displayName,
-//         token,
-//         provider: firebaseUser.providerData[0]?.providerId,
-//         imgUrl: firebaseUser.photoURL,
-//     }
-// }
+async function normalizeUser(firebaseUser: firebase.User): Promise<User> {
+    const token = await firebaseUser.getIdToken()
+    return {
+        uid: firebaseUser.uid,
+        email: firebaseUser.email,
+        name: firebaseUser.displayName,
+        token,
+        provider: firebaseUser.providerData[0]?.providerId,
+        imgUrl: firebaseUser.photoURL,
+    }
+}
 
 export function AuthContextProvider(props: any){
 
-    const [user, setUser] = useState<User>()
+    const [user, setUser] = useState<User>(null)
 
     async function signInWithGoogle(){
-        //route.push('/')
+        const response = await firebase.auth().signInWithPopup(
+            new firebase.auth.GoogleAuthProvider
+        )
+
+        if(response.user?.email){
+            const normalizedUser = await normalizeUser(response.user)
+            setUser(normalizedUser)
+            route.push('/')
+        }
     }
 
     return (
-        <AuthContextProvider value={{user: user, signInWithGoogle}}>
+        <AuthContext.Provider value={{user, signInWithGoogle}}>
             {props.children}
-        </AuthContextProvider>
+        </AuthContext.Provider>
     )
 }
 
