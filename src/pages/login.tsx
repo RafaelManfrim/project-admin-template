@@ -7,7 +7,7 @@ import { WarningIcon } from '../components/icons/Index'
 
 export default function Login(){
 
-    const {user, signInWithGoogle} = useAuth()
+    const { register, login, signInWithGoogle } = useAuth()
 
     const [error, setError] = useState<null | string>(null)
     const [mode, setMode] = useState<'login' | 'register'>('login')
@@ -19,19 +19,21 @@ export default function Login(){
         setTimeout(() => setError(null), time)
     }
 
-    function submit() {
-        switch (mode) {
-            case 'login':
-                console.log('login')
-                renderError('An error has occurred in the login, please try again.')
-                break
-            case 'register':
-                console.log('register')
-                renderError('An error has occurred in the register, please try again.')
-                break
+    async function submit() {
+        try {
+            switch (mode) {
+                case 'login':
+                    await login(email, password)
+                    break
+                case 'register':
+                    await register(email, password)
+                    break
+            }
+        } catch(e) {
+            renderError(e?.message ?? 'Erro desconhecido')
         }
     }
-
+        
     return (
         <div className="flex justify-center items-center h-screen">
             <div className="hidden sm:block w-2/3">

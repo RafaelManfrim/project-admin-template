@@ -7,6 +7,8 @@ import firebase from '../../services/firebase/firebase-config'
 type AuthContextProps = {
     user?: User | null
     signInWithGoogle?: () => Promise<void>
+    register?: (email: string, password: string) => Promise<void>
+    login?: (email: string, password: string) => Promise<void>
     logout?: () => Promise<void>
     loading?: boolean
 }
@@ -55,6 +57,30 @@ export function AuthContextProvider(props: any){
         }
     }
 
+    async function register(email: string, password: string){
+        try {
+            setLoading(true)
+            const response = await firebase.auth().createUserWithEmailAndPassword(email, password)
+    
+            await configSession(response.user)
+            route.push('/')
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    async function login(email: string, password: string){
+        try {
+            setLoading(true)
+            const response = await firebase.auth().signInWithEmailAndPassword(email, password)
+    
+            await configSession(response.user)
+            route.push('/')
+        } finally {
+            setLoading(false)
+        }
+    }
+
     async function signInWithGoogle(){
         try {
             setLoading(true)
@@ -62,7 +88,7 @@ export function AuthContextProvider(props: any){
                 new firebase.auth.GoogleAuthProvider
             )
     
-            configSession(response.user)
+            await configSession(response.user)
             route.push('/')
         } finally {
             setLoading(false)
@@ -89,7 +115,7 @@ export function AuthContextProvider(props: any){
     }, [])
 
     return (
-        <AuthContext.Provider value={{user, loading, signInWithGoogle, logout}}>
+        <AuthContext.Provider value={{user, loading, signInWithGoogle, register, login, logout}}>
             {props.children}
         </AuthContext.Provider>
     )
