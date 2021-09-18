@@ -10,7 +10,7 @@ export default function Header(props: HeaderProps){
     return (
         <header className='flex'>
             <Title title={props.title} subtitle={props.subtitle} />
-            <div className='flex flex-grow justify-end'>{props.children}</div>
+            <div className='flex flex-grow justify-end items-center'>{props.children}</div>
         </header>
     )
 }

@@ -3,6 +3,7 @@ import SwitchThemeButton from './SwitchThemeButton'
 import Sidebar from './Sidebar'
 import Content from './Content'
 import useAppContext from '../../data/hooks/useAppContext'
+import UserAvatar from './UserAvatar'
 
 type LayoutProps = {
     title: string
@@ -18,9 +19,10 @@ export default function Layout(props: LayoutProps){
         <main className={`${theme} flex h-screen w-screen`}>
             <Sidebar />
             <div className="flex flex-col bg-gray-200 dark:bg-gray-800 w-full p-7">
-            <Header title={props.title} subtitle={props.subtitle}>
-                <SwitchThemeButton theme={theme} switchTheme={switchTheme} />
-            </Header>
+                <Header title={props.title} subtitle={props.subtitle}>
+                    <SwitchThemeButton theme={theme} switchTheme={switchTheme} />
+                    <UserAvatar/>
+                </Header>
                 <Content>
                     {props.children}
                 </Content>
