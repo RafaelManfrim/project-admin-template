@@ -4,6 +4,7 @@ import Sidebar from './Sidebar'
 import Content from './Content'
 import useAppContext from '../../data/hooks/useAppContext'
 import UserAvatar from './UserAvatar'
+import ForceAuth from '../auth/ForceAuth'
 
 type LayoutProps = {
     title: string
@@ -16,17 +17,19 @@ export default function Layout(props: LayoutProps){
     const { theme, switchTheme } = useAppContext()
 
     return (
-        <main className={`${theme} flex h-screen w-screen`}>
-            <Sidebar />
-            <div className="flex flex-col bg-gray-200 dark:bg-gray-800 w-full p-7">
-                <Header title={props.title} subtitle={props.subtitle}>
-                    <SwitchThemeButton theme={theme} switchTheme={switchTheme} />
-                    <UserAvatar/>
-                </Header>
-                <Content>
-                    {props.children}
-                </Content>
-            </div>
+        <ForceAuth>
+            <main className={`${theme} flex h-screen w-screen`}>
+                <Sidebar />
+                <div className="flex flex-col bg-gray-200 dark:bg-gray-800 w-full p-7">
+                    <Header title={props.title} subtitle={props.subtitle}>
+                        <SwitchThemeButton theme={theme} switchTheme={switchTheme} />
+                        <UserAvatar/>
+                    </Header>
+                    <Content>
+                        {props.children}
+                    </Content>
+                </div>
         </main>
+        </ForceAuth>
     )
 }

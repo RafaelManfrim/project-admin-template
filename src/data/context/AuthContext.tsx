@@ -8,6 +8,7 @@ type AuthContextProps = {
     user?: User | null
     signInWithGoogle?: () => Promise<void>
     logout?: () => Promise<void>
+    loading?: boolean
 }
 
 const AuthContext = createContext<AuthContextProps>({})
@@ -82,11 +83,13 @@ export function AuthContextProvider(props: any){
         if(Cookies.get('admin-template-cod3r-auth')){
             const cancel = firebase.auth().onIdTokenChanged(configSession)
             return () => cancel()
+        } else {
+            setLoading(false)
         }
     }, [])
 
     return (
-        <AuthContext.Provider value={{user, signInWithGoogle, logout}}>
+        <AuthContext.Provider value={{user, loading, signInWithGoogle, logout}}>
             {props.children}
         </AuthContext.Provider>
     )
