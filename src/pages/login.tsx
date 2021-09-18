@@ -1,10 +1,13 @@
 import { useState } from 'react'
+import useAuth from '../data/hooks/useAuth'
 import AuthInput from '../components/auth/AuthInput'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { WarningIcon } from '../components/icons/Index'
 
 export default function Login(){
+
+    const {user, signInWithGoogle} = useAuth()
 
     const [error, setError] = useState<null | string>(null)
     const [mode, setMode] = useState<'login' | 'register'>('login')
@@ -55,7 +58,7 @@ export default function Login(){
 
                 <hr className='my-6 border-gray-300 w-full'/>
 
-                <button onClick={submit} className='w-full bg-red-500 hover:bg-red-400 text-white rounded-lg px-4 py-3 mb-4'>
+                <button onClick={signInWithGoogle} className='w-full bg-red-500 hover:bg-red-400 text-white rounded-lg px-4 py-3 mb-4'>
                     <FontAwesomeIcon icon={faGoogle} /> Sign in with Google
                 </button>
 
