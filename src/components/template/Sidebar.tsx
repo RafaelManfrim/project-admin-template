@@ -1,6 +1,7 @@
 import SidebarItem from './SidebarItem'
 import Logo from './Logo'
 import {HomeIcon, LogoutIcon, NotificationsIcon, SetingsIcon} from '../icons/Index'
+import useAuth from '../../data/hooks/useAuth'
 import route from 'next/router'
 
 type SidebarProps = {
@@ -8,6 +9,9 @@ type SidebarProps = {
 }
 
 export default function Sidebar(props: SidebarProps){
+
+    const { logout } = useAuth()
+
     return (
         <aside className="flex flex-col dark:bg-gray-900 dark:text-gray-300">
             <div className="h-20 w-25 bg-gradient-to-r from-indigo-500 to-purple-800 flex flex-col justify-center items-center">
@@ -19,7 +23,7 @@ export default function Sidebar(props: SidebarProps){
                 <SidebarItem url='/notifications' text="Notifications" icon={NotificationsIcon}/>
             </ul>
             <ul>
-                <SidebarItem cls='text-red-400 hover:bg-red-600 hover:text-white' onClick={e => {route.push('/login')}} text="Logout" icon={LogoutIcon}/>
+                <SidebarItem cls='text-red-400 hover:bg-red-600 hover:text-white' onClick={logout} text="Logout" icon={LogoutIcon}/>
             </ul>
         </aside>
     )
